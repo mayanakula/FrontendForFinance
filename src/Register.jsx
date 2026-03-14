@@ -13,7 +13,7 @@ const Register = () => {
         e.preventDefault();
         setError('');
         try {
-            await axios.post('http://localhost:8080/api/auth/register', { username, email, password });
+            await axios.post('https://backendforfinance.onrender.com/api/auth/register', { username, email, password });
             navigate('/login');
         } catch (err) {
             setError(err.response?.data?.error || 'Registration failed');
