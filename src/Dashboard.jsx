@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { Pie, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title } from 'chart.js';
@@ -12,12 +12,12 @@ const Dashboard = () => {
     const [forecastOutput, setForecastOutput] = useState('');
 
     const token = localStorage.getItem('token');
-    const api = axios.create({
+    const api = useMemo(() => axios.create({
         baseURL: 'http://localhost:8080/api',
         headers: { Authorization: `Bearer ${token}` }
-    });
+    }), [token]);
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         try {
             const res = await api.get('/dashboard');
             setData(res.data);
@@ -26,11 +26,11 @@ const Dashboard = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [api]);
 
     useEffect(() => {
         if (token) loadData();
-    }, [token]);
+    }, [token, loadData]);
 
     const handleUpload = async (e) => {
         e.preventDefault();
