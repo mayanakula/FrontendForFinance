@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './Layout';
+import Login from './Login';
+import Register from './Register';
+import Dashboard from './Dashboard';
+import AdminDashboard from './AdminDashboard';
 import './App.css';
+
+// Simple PrivateRoute wrapper
+const PrivateRoute = ({ children, requireAdmin }) => {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+
+    if (!token) return <Navigate to="/login" replace />;
+    if (requireAdmin && role !== 'admin') return <Navigate to="/" replace />;
+    return children;
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/admin" element={<PrivateRoute requireAdmin={true}><AdminDashboard /></PrivateRoute>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
