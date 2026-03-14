@@ -65,7 +65,7 @@ const Dashboard = () => {
         try {
             await api.post('/budgets', Object.fromEntries(formData.entries()));
             loadData();
-        } catch (err) { }
+        } catch { }
     };
 
     const handleGoal = async (e) => {
@@ -74,21 +74,21 @@ const Dashboard = () => {
         try {
             await api.post('/goals', Object.fromEntries(formData.entries()));
             loadData();
-        } catch (err) { }
+        } catch { }
     };
 
     const handleHealth = async () => {
         try {
             const res = await api.get('/health');
             setHealthOutput(`Score: ${res.data.score}. ${res.data.details}`);
-        } catch (err) { }
+        } catch { }
     };
 
     const handleForecast = async () => {
         try {
             const res = await api.get('/forecast');
             setForecastOutput(`Next Month Total: ₹${res.data.next_month_total?.toFixed(2) || 0} (${res.data.message})`);
-        } catch (err) { }
+        } catch { }
     };
 
     const handleChat = async (e) => {
@@ -100,7 +100,7 @@ const Dashboard = () => {
             log.innerHTML += `<div style="margin-bottom: 8px;"><strong>You:</strong> ${msg}</div>`;
             log.innerHTML += `<div style="margin-bottom: 16px; color: #0369a1;"><strong>AI:</strong> ${res.data.reply}</div>`;
             e.target.reset();
-        } catch (err) { }
+        } catch { }
     };
 
     if (loading) return <div>Loading dashboard...</div>;
