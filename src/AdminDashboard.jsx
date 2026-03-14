@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+
 
 const AdminDashboard = () => {
-    const [users, setUsers] = useState([]);
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+    const [users] = useState([]);
 
     // Since we don't have a dedicated endpoint for just users in the new backend without adding one, 
     // we assume the admin functionality might need to be ported or simplified.
