@@ -13,7 +13,7 @@ const Dashboard = () => {
 
     const token = localStorage.getItem('token');
     const api = useMemo(() => axios.create({
-        baseURL: 'http://localhost:8080/api',
+        baseURL: `${process.env.REACT_APP_API_URL || 'https://backendforfinance.onrender.com'}/api`,
         headers: { Authorization: `Bearer ${token}` }
     }), [token]);
 
@@ -263,15 +263,15 @@ const Dashboard = () => {
                 <div style={{ display: 'flex', gap: '2rem' }}>
                     <div>
                         <h3 style={{ fontSize: '1rem', color: '#475569' }}>Monthly</h3>
-                        <a href={`http://localhost:8080/api/reports/monthly?format=pdf`} style={styles.link}>PDF</a> | 
-                        <a href={`http://localhost:8080/api/reports/monthly?format=csv`} style={styles.link}>CSV</a> | 
-                        <a href={`http://localhost:8080/api/reports/monthly?format=excel`} style={styles.link}>Excel</a>
+                        <a href={`${process.env.REACT_APP_API_URL || 'https://backendforfinance.onrender.com'}/api/reports/monthly?format=pdf`} style={styles.link}>PDF</a> | 
+                        <a href={`${process.env.REACT_APP_API_URL || 'https://backendforfinance.onrender.com'}/api/reports/monthly?format=csv`} style={styles.link}>CSV</a> | 
+                        <a href={`${process.env.REACT_APP_API_URL || 'https://backendforfinance.onrender.com'}/api/reports/monthly?format=excel`} style={styles.link}>Excel</a>
                     </div>
                     <div>
                         <h3 style={{ fontSize: '1rem', color: '#475569' }}>Budget</h3>
-                        <a href={`http://localhost:8080/api/reports/budget?format=pdf`} style={styles.link}>PDF</a> | 
-                        <a href={`http://localhost:8080/api/reports/budget?format=csv`} style={styles.link}>CSV</a> | 
-                        <a href={`http://localhost:8080/api/reports/budget?format=excel`} style={styles.link}>Excel</a>
+                        <a href={`${process.env.REACT_APP_API_URL || 'https://backendforfinance.onrender.com'}/api/reports/budget?format=pdf`} style={styles.link}>PDF</a> | 
+                        <a href={`${process.env.REACT_APP_API_URL || 'https://backendforfinance.onrender.com'}/api/reports/budget?format=csv`} style={styles.link}>CSV</a> | 
+                        <a href={`${process.env.REACT_APP_API_URL || 'https://backendforfinance.onrender.com'}/api/reports/budget?format=excel`} style={styles.link}>Excel</a>
                     </div>
                 </div>
             </div>

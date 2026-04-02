@@ -12,7 +12,8 @@ const Login = () => {
         e.preventDefault();
         setError('');
         try {
-            const res = await axios.post('http://localhost:8080/api/auth/login', { username, password });
+            const API_URL = process.env.REACT_APP_API_URL || 'https://backendforfinance.onrender.com';
+            const res = await axios.post(`${API_URL}/api/auth/login`, { username, password });
             localStorage.setItem('token', res.data.token);
             // Decode simple JWT to fetch role & username locally (or assume simple values)
             const base64Url = res.data.token.split('.')[1];
